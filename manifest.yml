@@ -1,0 +1,14 @@
+--- 
+applications: 
+  .: 
+    framework: 
+      name: node
+      info: 
+        mem: 64M
+        description: Node.js Application
+        exec: 
+    name: stoplight
+    mem: 64M
+    url: ${name}.${target-base}
+    instances: 1
+    infra: aws

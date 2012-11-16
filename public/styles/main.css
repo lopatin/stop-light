@@ -1,0 +1,50 @@
+body{
+	background-image: url('http://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Sky_over_Washington_Monument.JPG/300px-Sky_over_Washington_Monument.JPG'); 
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-color: black;
+}
+
+.container{
+	text-align: center;
+}
+
+.modal-box{
+	width: 40%;
+	padding: 15px 15px 25px 15px;
+	background: rgba(0,0,0,.7);
+	border-radius: 5px;
+	margin: 25% auto;
+	color: white;
+	font-family: Verdana, Arial;
+	box-shadow: 0 0 30px rgba(0,0,0,.8);
+}
+
+.modal-box h1{
+	font-size: 20px;
+}
+
+.modal-box p{
+	font-size: 11px;
+}
+
+.modal-box input{
+	border-radius: 2px;
+	padding: 10px;
+	width: 80%;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+.modal-box a.button{
+	width: 80%;
+	padding: 10px;
+	background: green; 
+	cursor: pointer;
+	text-decoration: none;
+	color: white;
+}
+
+.modal-box a.button.disabled{
+	background: #666;
+}
