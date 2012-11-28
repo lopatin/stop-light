@@ -4,7 +4,8 @@ var express = require('express'),
 	server  = http.createServer(app),
 	jade	= require('jade'),
 	io 		= require('socket.io').listen(server),
-	_ 		= require('underscore');
+	_ 		= require('underscore'),
+	request = require('request');
 
 server.listen(8082);
 
@@ -63,6 +64,29 @@ io.sockets.on('connection', function(socket){
 	 	socket.emit();
 		 stoplight.new_connection(socket, data.name);
 		 // stoplight.emit_status(data.name);
+	 });
+
+	 socket.on('search', function(query, fn){
+	 	if(!query){
+	 		fn("Please use a valid query");
+	 		return;
+	 	}
+	 	request('http://api.flickr.com/services/rest/?method=flickr.photos.search&text='+query+'&content_type=1&safe_search=1&sort=interestingness-desc&page=1&per_page=10&api_key=f43295fec77dfdee5f6cadd0555c0888&format=json&nojsoncallback=1',
+	 		function(error, response, body){
+	 			if(error){
+	 				fn(error);
+	 				return;
+	 			}
+
+	 			var data = JSON.parse(body);
+	 			// console.log(data.query.results);
+	 			if(data.photos.photo)
+		 			fn(error, _.map(data.photos.photo, function(result){
+		 				return "http://farm"+result.farm+".staticflickr.com/"+result.server+"/"+result.id+"_"+result.secret+"_q.jpg";
+		 			}));
+		 		else
+		 			fn("results is blank");
+	 		});
 	 });
 
 });

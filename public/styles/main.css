@@ -6,6 +6,9 @@ body{
 	font-family: Verdana, Arial;
 	margin: 0;
 	padding: 0;
+	background-image: url('/images/carbonfiber.jpg'); 
+	background-position: 50% 0;
+	background-size: 100%;
 }
 
 body.index{
@@ -20,6 +23,8 @@ body.index{
 	bottom: 0;
 	right: 0;
 	left: 0;
+	background-color: rgba(0,0,0,.5);
+	background-repeat: no-repeat;
 }
 
 .container > div{
@@ -90,20 +95,33 @@ body.index{
 	font-weight: bold;
 	text-shadow: 0 -1px 1px rgba(0,0,0,.5);
 	box-shadow: inset 0 35px 2px rgba(255,255,255,.1);
+	display: none;
 }
 .status.offline{
 	background-color: #aaa;
 }
 .status.away{
-	background-color: yellow;
+	background-color: rgb(202, 202, 76);
 }
 .status.available{
-	background-color: yellow;
+	background-color: rgb(39, 145, 39);
 }
-.status.oncall{
-	background-color: red;
+.status.on-call{
+	background-color: rgb(172, 35, 35);
 }
 
+.container > div.offline .status.offline{
+	display: inline-block;
+}
+.container > div.away .status.away{
+	display: inline-block;
+}
+.container > div.available .status.available{
+	display: inline-block;
+}
+.container > div.on-call .status.on-call{
+	display: inline-block;
+}
 
 #bgChooser{
 	position: fixed;
@@ -112,10 +130,12 @@ body.index{
 	margin: 0;
 	padding: 0;
 
-	transition: bottom .3s;
-	-webkit-transition: bottom .3s;
-	-mox-transition: bottom .3s;
-	-o-transition: bottom .3s;
+	-webkit-transition: bottom .3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	-webkit-transition: bottom .3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	-moz-transition: bottom .3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	-ms-transition: bottom .3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	-o-transition: bottom .3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
+	transition: bottom .3s cubic-bezier(0.550, 0.085, 0.680, 0.530);
 }
 #bgChooser.collapsed{
 	bottom: -178px;
@@ -128,7 +148,7 @@ body.index{
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	background-color: rgba(0,0,0,.6);
+	background-color: rgba(25, 25, 25, .85);
 	border-bottom: 3px solid black;
 	box-shadow: inset 0 -1px 0 rgba(255,255,255,.15);
 	height: 34px;
@@ -136,7 +156,7 @@ body.index{
 
 #bgChooser .bar .search-group{
 	float: right;
-    padding: 5px 10px;
+    padding: 4px 10px;
     vertical-align: top;
 }
 #bgChooser .bar .search-group input.search{
@@ -158,10 +178,10 @@ body.index{
     color: white;
     margin-left: -1px;
 
-	transition: width .3s, background-color .3s, border .3s;
-	-webkit-transition: width .3s, background-color .3s, border .3s;
-	-mox-transition: width .3s, background-color .3s, border .3s;
-	-o-transition: width .3s, background-color .3s, border .3s;
+	transition: width .2s, background-color .2s, border .2s;
+	-webkit-transition: width .2s, background-color .2s, border .2s;
+	-mox-transition: width .2s, background-color .2s, border .2s;
+	-o-transition: width .2s, background-color .2s, border .2s;
 
 	text-shadow: 0 -1px 0 rgba(0,0,0,.7);
 }
@@ -195,10 +215,10 @@ body.index{
 	float: left;
 	color: white;
 	font-size: 10px;
-	margin: 12px 0 0 20px;
+	margin: 11px 0 0 20px;
 	text-shadow: 0 -1px 0 black;
 	padding-bottom: 3px;
-	border-bottom: 1px solid rgba(255, 255, 255, .2);
+	border-bottom: 1px solid rgba(255, 255, 255, .25);
 }
 #bgChooser .bar h2.displaying .label{
 	text-transform: uppercase;
@@ -211,8 +231,8 @@ body.index{
 
 #bgChooser .bar a.button.clear-search{
 	float: right;
-	height: 14px;
-	margin: 5px 20px 6px 0;
+	height: 13px;
+	margin: 6px 20px 6px 0;
 	display: inline-block;
 	border-radius: 2px;
 	font-size: 11px;
@@ -245,10 +265,47 @@ body.index{
 	background-size: 100%;
 	padding: 10px;
 	height: 120px;
+	overflow-x: auto;
 }
 
-#btChoosser .list > li{
+#bgChooser .list .photo-holder{
+	position: relative;
+/*	bottom: 0;
+	left: 0;*/
+	width: 2200px;
+	padding: 0px 15px;
 
+}
+
+#bgChooser .list .photo-holder a.photo{
+	display: inline-block;
+	height: 115px;
+	width: 183px;
+	background-size: 100%;
+	background-position-y: top;
+	background-repeat: no-repeat;
+	margin-right: 14px;
+	border: 1px solid black;
+	opacity: 0;
+	cursor: pointer;
+
+	transition: opacity .5s;
+	-webkit-transition: opacity .5s;
+	-mox-transition: opacity .5s;
+	-o-transition: opacity .5s;
+}
+#bgChooser .list .photo-holder a.photo:hover{
+	outline: 3px solid rgba(255,255,255,.1);
+}
+#bgChooser .list .photo-holder a.photo.selected{
+	outline: 4px solid #3FAFFA;
+	cursor: default;
+}
+#bgChooser .list .photo-holder a.photo.selected:hover{
+	outline: 4px solid #3FAFFA;
+}
+#bgChooser .list .photo-holder a.photo.show{
+	opacity: 1;
 }
 
 #bgChooser .handle-holder{
@@ -258,7 +315,7 @@ body.index{
 #bgChooser .handle-holder .handle{
 	text-shadow: 0 -1px 0 rgba(0,0,0,1);
 	margin: 0 auto;
-	background-color: rgba(0,0,0,.6);
+	background-color: rgba(25, 25, 25, .85);
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	color: white;
@@ -267,6 +324,10 @@ body.index{
 	position: relative;
 	width: 96px;
 	cursor: pointer;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	box-shadow: 0 -1px 0 rgba(255, 255, 255, .3), inset 0 2px 2px rgba(255,255,255,.1);
 }
 
 #bgChooser .handle-holder .handle .expand-icon{
@@ -282,3 +343,21 @@ body.index{
 #bgChooser.expanded .handle-holder .handle .expand-icon.minus{
 	display: inline-block;
 }
+
+.hr{
+	position: absolute;
+	height: 1px;
+	background-color: black;
+	width: 5000px;
+	bottom: 0;
+	box-shadow: 0 -1px 0 rgba(255,255,255,.3), 0 1px 3px rgba(255,255,255,.2);
+}
+.hr.left{
+	left: -5001px;
+}
+.hr.right{
+	right: -5001px;
+}
+
+
+

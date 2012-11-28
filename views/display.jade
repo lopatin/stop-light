@@ -5,19 +5,29 @@ html
 		link(rel='stylesheet', href='/styles/main.css')
 		script(src='/js/libs/jquery.js')
 		script(src='/js/libs/socket.io.js')
+		script(src='/js/libs/typingevents.js')
+		script(src='/js/libs/underscore.js')
 		script(src='/js/main.js')
 	body
 		.container
-			div
+			div.offline
 				.status.offline
 					| Offline
+				.status.available
+					| Available
+				.status.on-call
+					| On Call
+				.status.away
+					| Away
 				.modal-box
 					| No message
 
 		#bgChooser.expanded
 			.handle-holder
 				div
-					.handle.plus
+					.handle
+						.hr.left
+						.hr.right
 						span.expand-icon.plus +
 						span.expand-icon.minus -
 						| Themes
@@ -26,7 +36,7 @@ html
 					span.label
 						| Now Displaying: 
 					span.name
-						| Default backgrounds
+						| Default background images
 
 				a.button.clear-search
 					| Clear search
@@ -34,3 +44,4 @@ html
 					a.flickr-logo(href="http://www.flickr.com/")
 					input.search(type="text", placeholder="Search background photos")
 			.list
+				.photo-holder
