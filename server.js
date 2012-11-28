@@ -1,8 +1,12 @@
 var express = require('express'),
 	app 	= express(),
+	http	= require('http'),
+	server  = http.createServer(app),
 	jade	= require('jade'),
-	io 		= require('socket.io').listen(app),
+	io 		= require('socket.io').listen(server),
 	_ 		= require('underscore');
+
+server.listen(8082);
 
 /*
  * Setup public directory for serving assets
@@ -56,8 +60,9 @@ io.sockets.on('connection', function(socket){
 	 */
 
 	 socket.on('hello', function(data){
+	 	socket.emit();
 		 stoplight.new_connection(socket, data.name);
-		 stoplight.emit_status(name);
+		 // stoplight.emit_status(data.name);
 	 });
 
 });
@@ -80,7 +85,8 @@ app.get('/:name', function(req, res){
 });
 
 app.get('/set_status/:name/:status/:away_message', function(req, res){
+	console.log(req.params);
 	stoplight.set_status(req.params);
+	res.end('recieved');
 });
 
-app.listen(8082);

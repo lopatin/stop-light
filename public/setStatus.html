@@ -1,0 +1,21 @@
+<html>
+<head>
+	<title>Set status</title>
+	<script src="/js/libs/jquery.js"></script>
+</head>
+<body>
+		<input class="username" type="text" placeholder="username">
+		<input class="status" type="text" placeholder="status">
+		<input class="message" type="text" placeholder="message">
+		<button id="submit1">Submit status</button>
+
+	<script>
+	$(function(){
+		$("#submit1").click(function(e){
+			e.preventDefault();
+			jQuery.ajax('/set_status/' + $(".username").val() + "/" + $(".status").val() + "/" + $(".message").val());
+		});
+	});
+	</script>
+</body>
+</html>

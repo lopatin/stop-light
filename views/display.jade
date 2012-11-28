@@ -8,4 +8,29 @@ html
 		script(src='/js/main.js')
 	body
 		.container
+			div
+				.status.offline
+					| Offline
+				.modal-box
+					| No message
 
+		#bgChooser.expanded
+			.handle-holder
+				div
+					.handle.plus
+						span.expand-icon.plus +
+						span.expand-icon.minus -
+						| Themes
+			.bar
+				h2.displaying
+					span.label
+						| Now Displaying: 
+					span.name
+						| Default backgrounds
+
+				a.button.clear-search
+					| Clear search
+				.search-group
+					a.flickr-logo(href="http://www.flickr.com/")
+					input.search(type="text", placeholder="Search background photos")
+			.list
