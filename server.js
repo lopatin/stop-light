@@ -42,15 +42,18 @@ function StopLight(){
 	self.set_status = function(params){
 		self.user_statuses[params.name] = params;
 		self.emit_status(params.name);
+		console.log(self.user_statuses);
 	};
 
 	self.emit_status = function(name){
+		console.log("IN EMIT STATUS: " + name);
 		var connection = self.connections[name];
-		if(connection){
+		if(connection)
 			connection.socket.emit('status-update', self.user_statuses[name]);
-		}
 	};
 }
+
+
 
 var stoplight = new StopLight();
 
@@ -61,9 +64,9 @@ io.sockets.on('connection', function(socket){
 	 */
 
 	 socket.on('hello', function(data){
-	 	socket.emit();
-		 stoplight.new_connection(socket, data.name);
-		 // stoplight.emit_status(data.name);
+	 	// users[data.name] = 
+		stoplight.new_connection(socket, data.name);
+		stoplight.emit_status(data.name);
 	 });
 
 	 socket.on('search', function(query, fn){
@@ -71,7 +74,7 @@ io.sockets.on('connection', function(socket){
 	 		fn("Please use a valid query");
 	 		return;
 	 	}
-	 	request('http://api.flickr.com/services/rest/?method=flickr.photos.search&text='+query+'&content_type=1&safe_search=1&sort=interestingness-desc&page=1&per_page=10&api_key=f43295fec77dfdee5f6cadd0555c0888&format=json&nojsoncallback=1',
+	 	request('http://api.flickr.com/services/rest/?method=flickr.photos.search&tags='+query.split(' ').join(',')+'&content_type=1&safe_search=1&sort=interestingness-desc&page=1&per_page=10&api_key=f43295fec77dfdee5f6cadd0555c0888&format=json&nojsoncallback=1',
 	 		function(error, response, body){
 	 			if(error){
 	 				fn(error);
@@ -109,8 +112,11 @@ app.get('/:name', function(req, res){
 });
 
 app.get('/set_status/:name/:status/:away_message', function(req, res){
-	console.log(req.params);
-	stoplight.set_status(req.params);
+	stoplight.set_status({
+		name: req.params['name'],
+		status: req.params['status'],
+		message: req.params['away_message']
+	});
 	res.end('recieved');
 });
 

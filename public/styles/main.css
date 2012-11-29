@@ -39,7 +39,7 @@ body.index{
 
 .modal-box{
 	width: 40%;
-	padding: 15px 15px 25px 15px;
+	padding: 24px 15px 25px 15px;
 	background: rgba(0,0,0,.6);
 	border-radius: 5px;
 	border: 1px solid black;
@@ -232,7 +232,7 @@ body.index{
 #bgChooser .bar a.button.clear-search{
 	float: right;
 	height: 13px;
-	margin: 6px 20px 6px 0;
+	margin: 5px 20px 6px 0;
 	display: inline-block;
 	border-radius: 2px;
 	font-size: 11px;
@@ -320,9 +320,9 @@ body.index{
 	border-top-right-radius: 5px;
 	color: white;
 	font-size: 13px;
-	padding: 5px 15px;
+	padding: 5px 15px 5px 12px;
 	position: relative;
-	width: 96px;
+	width: 90px;
 	cursor: pointer;
 	border-top: 1px solid black;
 	border-left: 1px solid black;
@@ -334,6 +334,14 @@ body.index{
 	display: none;	
 	margin: 0 10px 0 5px;
 	width: 15px;
+	height: 15px;
+	background-color: rgba(255,255,255,.1);
+	text-align: center;
+	border-radius: 14px;
+	padding: 0 1px 2px 1px;
+	font-weight: bold;
+	box-shadow: inset 1px 1px 1px rgba(255,255,255,.1);
+	border: 1px solid rgba(0,0,0,.5);
 }
 
 #bgChooser.collapsed .handle-holder .handle .expand-icon.plus{

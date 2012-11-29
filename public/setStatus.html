@@ -4,16 +4,22 @@
 	<script src="/js/libs/jquery.js"></script>
 </head>
 <body>
-		<input class="username" type="text" placeholder="username">
-		<input class="status" type="text" placeholder="status">
-		<input class="message" type="text" placeholder="message">
+
+		<input class="username" type="text" placeholder="Username">
+		<select class="status" name="status">
+			<option value="available">Available</option>
+			<option value="on-call">On-call</option>
+			<option value="away">Away</option>
+			<option value="offline">Offline</option>
+		</select>
+		<textarea class="message" placeholder="Away message"></textarea>
 		<button id="submit1">Submit status</button>
 
 	<script>
 	$(function(){
 		$("#submit1").click(function(e){
+			$.get('/set_status/' + $(".username").val() + "/" + $(".status option:selected").val() + "/" + $(".message").val());
 			e.preventDefault();
-			jQuery.ajax('/set_status/' + $(".username").val() + "/" + $(".status").val() + "/" + $(".message").val());
 		});
 	});
 	</script>

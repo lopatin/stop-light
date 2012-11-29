@@ -3,17 +3,15 @@ $(function(){
 		search_textfield = $("input.search"),
 		clear_button = $(".button.clear-search"),
 		last_query = "",
-		selected_url = "";
+		selected_url = "",
+		name = window.location.href.match(/\/([a-zA-Z1-9]+)\/?$/)[1];;
 
 
 	socket.on('status-update', function(update){
-		// alert('hi');
-		alert(update);
 		render_update(update);
 	});
 
 	socket.emit('hello', {name: name});
-
 
 	var default_backgrounds = [
 		"http://farm8.staticflickr.com/7051/6928218837_1faf5c17d8_q.jpg",
@@ -34,10 +32,16 @@ $(function(){
 
 	var statuses = ['available', 'offline', 'away', 'on-call'];
 
-	// alert(name);
 	function render_update(update){
-		$(".status").html(update.status);
-		$('.away-message').html(update.away_message);
+		$(".container > div").removeClass("offline available on-call away");
+		$(".container > div").addClass(update.status);
+
+		if(!update.message)
+			$(".modal-box.message").fadeOut(200);
+		else{
+			$(".modal-box.message").fadeIn(200);
+			$(".modal-box.message").html(update.message);
+		}
 	}
 
 	function set_bg(url){
