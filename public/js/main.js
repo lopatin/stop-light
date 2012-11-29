@@ -1,5 +1,5 @@
 $(function(){
-	var socket = io.connect("http://localhost/"),
+	var socket = io.connect("http://"+window.location.hostname),
 		search_textfield = $("input.search"),
 		clear_button = $(".button.clear-search"),
 		last_query = "",
