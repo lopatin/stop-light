@@ -36,6 +36,9 @@ body.index{
 	background-position: 50% 0;
 }
 
+.modal-box ol li{
+	text-align: left;
+}
 
 .modal-box{
 	width: 40%;
