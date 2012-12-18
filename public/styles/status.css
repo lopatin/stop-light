@@ -1,0 +1,52 @@
+
+.container{
+	width: 329px;
+	height: 303px;
+	margin: 0 auto;
+	background-image: url('/images/lyncBG.png');
+	background-repeat: no-repeat;
+	border-bottom: 1px solid #0a77c8;
+	padding: 21px 13px;
+}
+
+p.message{
+	width: 330px;
+	background-color: #ececec;
+	color: black;
+	font-size: 12px;
+	font-family: Helvetica, Arial, Verdana;
+	width: 319px;
+	height: 15px;
+	padding: 5px;
+}
+p.message:focus{
+	box-shadow: none;
+	border: 0px;
+}
+
+#steps{
+	margin: 0 auto;
+	width: 400px;
+	font-size: 13px;
+	font-family: Helvetica, Arial, Verdana	;
+}
+
+.substatus{
+	background-color: white;
+	margin-left: 70px;
+	padding: 7px;
+	margin-top: -12px;
+}
+
+[contenteditable="true"].single-line {
+    white-space: nowrap;
+    overflow: hidden;
+}
+[contenteditable="true"].single-line br {
+    display:none;
+
+}
+[contenteditable="true"].single-line * {
+    display:inline;
+    white-space:nowrap;
+}​

@@ -2,24 +2,48 @@
 <head>
 	<title>Set status</title>
 	<script src="/js/libs/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="/styles/status.css">
 </head>
 <body>
+	<div id="steps">
+		<h2>Microsoft Lync Simulator</h2>
+		<p>Our web server accepts HTTP requests from the StopLight desktop app which retrieves the current Microsoft Lync user's status. This is a simulator for that program because the desktop application requires Lync to be installed on the computer. It emulates the Lync interface, and sends the HTTP request which would normally be sent from the desktop application.</p>
+		<ol>
+			<li>Set your username in the field next to the image</li>
+			<li>Select your current status from the dropdown</li>
+			<li>Set your presence message in the gray box that says "Your status"</li>
+			<li>Click "Submit Status"</li>
+			<li>Go to <a href="http://107.20.137.235:8082/">http://107.20.137.235:8082</a> to view the status that you just set. This status page will update in real-time to any further status changes from this page without even refreshing.</li>
+		</ol>
+		<br>
+	</div>
 
-		<input class="username" type="text" placeholder="Username">
-		<select class="status" name="status">
-			<option value="available">Available</option>
-			<option value="on-call">On-call</option>
-			<option value="away">Away</option>
-			<option value="offline">Offline</option>
-		</select>
-		<textarea class="message" placeholder="Away message"></textarea>
-		<button id="submit1">Submit status</button>
+	<div class="container">
+		<p class="message single-line" contenteditable="true">Your Status</p>
+
+		<div class="substatus">
+			<input class="username" type="text" placeholder="Username">
+			<br>
+			<select class="status" name="status">
+				<option value="available">Available</option>
+				<option value="on-call">On-call</option>
+				<option value="away">Away</option>
+				<option value="offline">Offline</option>
+			</select>
+			<!-- <textarea class="message" placeholder="Away message"></textarea> -->
+			<button id="submit1">Submit status</button>
+		</div>
+	</div>
 
 	<script>
 	$(function(){
 		$("#submit1").click(function(e){
-			$.get('/set_status/' + $(".username").val() + "/" + $(".status option:selected").val() + "/" + $(".message").val());
-			e.preventDefault();
+			if(!$(".username").val() || !$(".status option:selected").val() || !$(".message").text())
+				alert("Please use a valid username and message");
+			else{
+				$.get('/set_status/' + $(".username").val() + "/" + $(".status option:selected").val() + "/" + $(".message").text());
+				e.preventDefault();
+			}
 		});
 	});
 	</script>
